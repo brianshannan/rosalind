@@ -7,21 +7,21 @@ import (
 	"os"
 )
 
-func ReadFileFromArg() (string, error) {
+func ReadFileFromArg() ([]byte, error) {
 	filePath := flag.Arg(0)
 	if filePath == "" {
-		return "", errors.New("no file provided")
+		return nil, errors.New("no file provided")
 	}
 
 	f, err := os.Open(filePath)
 	if err != nil {
-		return "", errors.New("unable to open file path")
+		return nil, errors.New("unable to open file path")
 	}
 
 	data, err := ioutil.ReadAll(f)
 	if err != nil {
-		return "", errors.New("unable to read file")
+		return nil, errors.New("unable to read file")
 	}
 
-	return string(data), nil
+	return data, nil
 }
