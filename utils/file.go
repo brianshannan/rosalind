@@ -25,3 +25,16 @@ func ReadFileFromArg() ([]byte, error) {
 
 	return data, nil
 }
+
+func ReadFileFromArgStripTrailingNewline() ([]byte, error) {
+	data, err := ReadFileFromArg()
+	if err != nil {
+		return nil, err
+	}
+
+	if data[len(data)-1] == '\n' {
+		data = data[:len(data)-1]
+	}
+
+	return data, nil
+}
