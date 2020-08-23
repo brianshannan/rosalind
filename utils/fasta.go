@@ -1,6 +1,11 @@
 package utils
 
-import "strings"
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
+)
 
 type FASTAEntry struct {
 	Name     string
@@ -23,4 +28,22 @@ func ParseFasta(s string) []FASTAEntry {
 	}
 
 	return entries
+}
+
+func DownloadFasta(id string) ([]FASTAEntry, error) {
+	resp, err := http.Get(fmt.Sprintf("https://www.uniprot.org/uniprot/%s.fasta", id))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode >= 300 {
+		return nil, fmt.Errorf("received status code %d", resp.StatusCode)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return ParseFasta(string(body)), nil
 }
