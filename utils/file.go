@@ -3,7 +3,7 @@ package utils
 import (
 	"errors"
 	"flag"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
@@ -14,11 +14,12 @@ func ReadFileFromArg() ([]byte, error) {
 	}
 
 	f, err := os.Open(filePath)
+	defer f.Close()
 	if err != nil {
 		return nil, errors.New("unable to open file path")
 	}
 
-	data, err := ioutil.ReadAll(f)
+	data, err := io.ReadAll(f)
 	if err != nil {
 		return nil, errors.New("unable to read file")
 	}
