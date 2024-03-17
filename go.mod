@@ -1,3 +1,3 @@
 module github.com/brianshannan/rosalind
 
-go 1.13
+go 1.22
