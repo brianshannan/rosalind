@@ -12,6 +12,22 @@ func CodonToAA(codon string) string {
 	return rnaAAMap[codon]
 }
 
+func RNAToProtein(rna string) string {
+	proteinString := ""
+	for i := 0; i < len(rna); i += 3 {
+		if i+3 > len(rna) {
+			break
+		}
+
+		aa := rnaAAMap[rna[i:i+3]]
+		if aa == "Stop" {
+			break
+		}
+		proteinString += aa
+	}
+	return proteinString
+}
+
 var rnaAAMap = map[string]string{
 	"UUU": "F",
 	"CUU": "L",
