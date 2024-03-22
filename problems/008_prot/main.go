@@ -17,17 +17,17 @@ func main() {
 	s := string(data)
 	proteinString := ""
 	for i := 0; i < len(s); i += 3 {
-		codon := rnaToCodon(s[i : i+3])
-		if codon == "Stop" {
+		aa := rnaToAA(s[i : i+3])
+		if aa == "Stop" {
 			break
 		}
-		proteinString += codon
+		proteinString += aa
 	}
 
 	fmt.Println(proteinString)
 }
 
-var rnaCodonMap map[string]string = map[string]string{
+var rnaAAMap = map[string]string{
 	"UUU": "F",
 	"CUU": "L",
 	"AUU": "I",
@@ -94,6 +94,6 @@ var rnaCodonMap map[string]string = map[string]string{
 	"GGG": "G",
 }
 
-func rnaToCodon(rna string) string {
-	return rnaCodonMap[rna]
+func rnaToAA(rna string) string {
+	return rnaAAMap[rna]
 }

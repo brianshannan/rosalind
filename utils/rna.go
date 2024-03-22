@@ -1,38 +1,18 @@
 package utils
 
-func TranscribeRNAToProtein(rna string) []string {
-	var proteins []string
-	var currentProteins []string
-	for i := 0; i < len(rna); i += 3 {
-		if i+3 > len(rna) {
-			break
-		}
-
-		codon := rna[i : i+3]
-		if IsStartCodon(codon) {
-			currentProteins = append(currentProteins, "")
-		}
-		if len(currentProteins) > 0 && IsStopCodon(codon) {
-			proteins = append(proteins, currentProteins...)
-			currentProteins = nil
-		}
-
-		for i, currentProtein := range currentProteins {
-			currentProteins[i] = currentProtein + rnaCodonMap[codon]
-		}
-	}
-	return proteins
-}
-
 func IsStartCodon(codon string) bool {
 	return codon == "AUG"
 }
 
 func IsStopCodon(codon string) bool {
-	return rnaCodonMap[codon] == "Stop"
+	return rnaAAMap[codon] == "Stop"
 }
 
-var rnaCodonMap = map[string]string{
+func CodonToAA(codon string) string {
+	return rnaAAMap[codon]
+}
+
+var rnaAAMap = map[string]string{
 	"UUU": "F",
 	"CUU": "L",
 	"AUU": "I",
