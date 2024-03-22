@@ -2,10 +2,14 @@ package utils
 
 import "strconv"
 
-func IntSliceToStringSlice(ints []int) []string {
-	strings := make([]string, len(ints))
-	for i, ival := range ints {
-		strings[i] = strconv.Itoa(ival)
+func SliceMap[T, U any](input []T, fn func(T) U) []U {
+	output := make([]U, len(input))
+	for i, inputVal := range input {
+		output[i] = fn(inputVal)
 	}
-	return strings
+	return output
+}
+
+func IntSliceToStringSlice(ints []int) []string {
+	return SliceMap(ints, strconv.Itoa)
 }

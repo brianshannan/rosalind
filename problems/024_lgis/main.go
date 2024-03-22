@@ -28,13 +28,13 @@ func main() {
 	}
 
 	lis := longestIncreasingSubsequence(sequence)
-	fmt.Printf("%v\n", strings.Join(utils.IntSliceToStringSlice(lis), " "))
+	fmt.Printf("%v\n", strings.Join(utils.SliceMap(lis, strconv.Itoa), " "))
 
 	// longest decreasing is longest increasing with negated inputs
 	negativeSequence := negateSlice(sequence)
 	lds := longestIncreasingSubsequence(negativeSequence)
 	lds = negateSlice(lds)
-	fmt.Printf("%v\n", strings.Join(utils.IntSliceToStringSlice(lds), " "))
+	fmt.Printf("%v\n", strings.Join(utils.SliceMap(lds, strconv.Itoa), " "))
 }
 
 func negateSlice(vals []int) []int {
