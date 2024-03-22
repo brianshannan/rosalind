@@ -5,6 +5,7 @@ import (
 	"flag"
 	"io"
 	"os"
+	"strconv"
 )
 
 func ReadFileFromArg() ([]byte, error) {
@@ -38,4 +39,12 @@ func ReadFileFromArgStripTrailingNewline() ([]byte, error) {
 	}
 
 	return data, nil
+}
+
+func ParseInt(s string) int {
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return i
 }
